@@ -3,152 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Knowledge Hub | Oletai Agro Group</title>
+  <meta name="description" content="Research, field insights, and policy analysis advancing agricultural finance and climate resilience across East Africa.">
+  <meta name="keywords" content="Agritech Research, Climate Resilience, Agricultural Finance, Youth in Agriculture, Oletai Agro Group Blog">
+  <meta name="author" content="Oletai Agro Group">
+  <link rel="canonical" href="https://oletai.org/blog.html">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://oletai.org/blog.html">
+  <meta property="og:title" content="Knowledge Hub | Oletai Agro Group">
+  <meta property="og:description" content="Research, field insights, and policy analysis advancing agricultural finance across East Africa.">
+  <meta property="og:image" content="https://oletai.org/assets/blog-preview.jpg">
+
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --green-950: #061C0F;
-      --green-900: #0C2E18;
-      --green-800: #174523;
-      --green-700: #1F5E2E;
-      --green-600: #2D7A40;
-      --green-500: #3D9A54;
-      --green-400: #5BB56E;
-      --green-300: #87CE96;
-      --green-100: #C8EACE;
-      --green-50:  #EAF5EC;
-      --amber-700: #92400E;
-      --amber-500: #D97706;
-      --amber-400: #F59E0B;
-      --amber-50:  #FFFBEB;
-      --teal-800:  #134E4A;
-      --teal-600:  #0D9488;
-      --teal-100:  #CCFBF1;
-      --sans: 'DM Sans', system-ui, sans-serif;
-      --serif: 'DM Serif Display', Georgia, serif;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--sans); background: #F7F5F0; color: #1a1a1a; overflow-x: hidden; }
 
-    /* NAV */
-    nav {
-      background: rgba(255,255,255,0.96); backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(45,122,64,0.1);
-      position: sticky; top: 0; z-index: 1000;
-    }
-    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 56px; height: 70px; display: flex; align-items: center; justify-content: space-between; }
-    .logo-mark { width: 38px; height: 38px; border-radius: 9px; background: var(--green-700); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 19px; color: #fff; font-style: italic; flex-shrink: 0; }
-    .logo-text { font-size: 15px; font-weight: 600; color: #111; }
-    .logo-sub { font-size: 10px; font-weight: 400; color: #888; letter-spacing: 0.1em; text-transform: uppercase; }
-    .nav-badge { background: var(--green-50); border: 1px solid rgba(45,122,64,0.2); color: var(--green-700); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px; letter-spacing: 0.06em; }
-    .nav-back { font-size: 13px; font-weight: 600; color: #777; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: color 0.2s; }
-    .nav-back:hover { color: var(--green-600); }
-
-    /* HERO BAND */
-    .hub-hero { background: var(--green-900); padding: 72px 56px 64px; }
-    .hub-hero-inner { max-width: 1280px; margin: 0 auto; }
-    .hub-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-300); margin-bottom: 16px; }
-    .hub-tag::before { content: ''; width: 20px; height: 2px; background: var(--green-400); border-radius: 1px; }
-    .hub-hero h1 { font-family: var(--serif); font-size: 52px; color: #fff; line-height: 1.1; margin-bottom: 18px; }
-    .hub-hero h1 em { font-style: italic; color: var(--green-400); }
-    .hub-hero p { font-size: 18px; color: rgba(255,255,255,0.55); font-weight: 300; max-width: 600px; line-height: 1.75; margin-bottom: 36px; }
-    .topic-pills { display: flex; gap: 10px; flex-wrap: wrap; }
-    .topic-pill { border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 500; padding: 7px 16px; border-radius: 100px; cursor: pointer; transition: all 0.2s; background: transparent; }
-    .topic-pill:hover, .topic-pill.active { background: var(--green-700); border-color: var(--green-600); color: #fff; }
-
-    /* MAIN LAYOUT */
-    .page-body { max-width: 1280px; margin: 0 auto; padding: 56px 56px 80px; display: grid; grid-template-columns: 1fr 320px; gap: 48px; }
-
-    /* FEATURED POST */
-    .featured-post { background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.07); margin-bottom: 32px; display: grid; grid-template-columns: 1fr 1fr; }
-    .featured-visual { background: var(--green-950); padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
-    .featured-num { font-family: var(--serif); font-size: 80px; color: rgba(255,255,255,0.07); line-height: 1; margin-bottom: 24px; }
-    .featured-quote { font-family: var(--serif); font-size: 22px; color: rgba(255,255,255,0.75); font-style: italic; line-height: 1.5; }
-    .featured-source { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 10px; }
-    .featured-body { padding: 40px; }
-    .featured-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber-500); margin-bottom: 12px; }
-    .featured-body h2 { font-family: var(--serif); font-size: 28px; color: #111; line-height: 1.25; margin-bottom: 16px; }
-    .featured-body p { font-size: 14px; color: #666; line-height: 1.75; margin-bottom: 24px; }
-    .article-meta { display: flex; align-items: center; gap: 10px; padding-top: 20px; border-top: 1px solid #f0f0f0; }
-    .avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 15px; font-style: italic; flex-shrink: 0; }
-    .meta-author { font-size: 13px; font-weight: 600; color: #333; }
-    .meta-date { font-size: 12px; color: #aaa; }
-    .read-link { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--green-700); text-decoration: none; display: flex; align-items: center; gap: 4px; }
-    .read-link:hover { color: var(--green-600); }
-
-    /* ARTICLE GRID */
-    .articles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .article-card { background: #fff; border-radius: 16px; border: 1px solid rgba(0,0,0,0.07); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
-    .article-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
-    .article-card-top { height: 5px; }
-    .article-card-body { padding: 24px; }
-    .article-tags { display: flex; gap: 8px; margin-bottom: 14px; align-items: center; flex-wrap: wrap; }
-    .tag { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; }
-    .read-time { font-size: 11px; color: #bbb; margin-left: auto; }
-    .article-card h3 { font-family: var(--serif); font-size: 18px; color: #111; line-height: 1.3; margin-bottom: 10px; }
-    .article-card p { font-size: 13px; color: #777; line-height: 1.7; margin-bottom: 18px; }
-    .article-card .article-meta { padding-top: 14px; }
-
-    /* SIDEBAR */
-    .sidebar { display: flex; flex-direction: column; gap: 24px; }
-    .scard { background: #fff; border-radius: 16px; border: 1px solid rgba(0,0,0,0.07); overflow: hidden; }
-    .scard-head { padding: 16px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #999; }
-    .scard-body { padding: 16px 20px; }
-    .topic-list { display: flex; flex-direction: column; gap: 0; }
-    .topic-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5; font-size: 14px; color: #444; font-weight: 500; cursor: pointer; transition: color 0.2s; text-decoration: none; }
-    .topic-row:last-child { border-bottom: none; }
-    .topic-row:hover { color: var(--green-700); }
-    .topic-count { font-size: 12px; color: #bbb; font-weight: 400; }
-    .newsletter-card { background: var(--green-900); border-radius: 16px; padding: 28px; }
-    .newsletter-card h3 { font-family: var(--serif); font-size: 22px; color: #fff; margin-bottom: 10px; }
-    .newsletter-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 20px; }
-    .newsletter-input { width: 100%; padding: 11px 14px; border-radius: 8px; border: none; font-family: var(--sans); font-size: 13px; margin-bottom: 10px; outline: none; }
-    .newsletter-btn { width: 100%; background: var(--green-500); color: #fff; border: none; padding: 12px; border-radius: 8px; font-family: var(--sans); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-    .newsletter-btn:hover { background: var(--green-600); }
-    .data-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
-    .data-row:last-child { border-bottom: none; }
-    .data-label { font-size: 13px; color: #666; }
-    .data-val { font-size: 13px; font-weight: 700; color: #111; }
-    .source-badge { background: var(--green-50); color: var(--green-700); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; letter-spacing: 0.06em; }
-    .report-row { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #f5f5f5; }
-    .report-row:last-child { border-bottom: none; }
-    .report-ico { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-    .report-row h5 { font-size: 13px; font-weight: 600; color: #111; line-height: 1.35; margin-bottom: 3px; }
-    .report-row p { font-size: 11px; color: #aaa; }
-    .pagination { display: flex; gap: 8px; justify-content: center; margin-top: 32px; }
-    .page-btn { width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); background: #fff; color: #555; transition: all 0.2s; }
-    .page-btn.active { background: var(--green-700); color: #fff; border-color: var(--green-700); }
-    .page-btn:hover:not(.active) { background: var(--green-50); border-color: var(--green-400); color: var(--green-700); }
-
-    footer { background: var(--green-950); padding: 40px 56px; margin-top: 0; }
-    .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .footer-inner p { font-size: 13px; color: rgba(255,255,255,0.3); }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--green-400); }
-
-    /* ARTICLE FULL PAGE overlay */
-    .article-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; overflow-y: auto; padding: 40px 20px; }
-    .article-overlay.open { display: flex; justify-content: center; }
-    .article-box { background: #fff; border-radius: 20px; max-width: 780px; width: 100%; padding: 0 0 56px; overflow: hidden; position: relative; align-self: flex-start; margin-top: 20px; }
-    .article-box-close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; border: none; z-index: 2; }
-    .article-box-header { background: var(--green-900); padding: 48px 48px 40px; }
-    .article-box-body { padding: 40px 48px 0; }
-    .article-box-body h2 { font-family: var(--serif); font-size: 26px; color: #111; margin: 28px 0 14px; }
-    .article-box-body p { font-size: 16px; color: #444; line-height: 1.85; margin-bottom: 20px; }
-    .article-box-body blockquote { border-left: 3px solid var(--green-500); padding: 16px 24px; background: var(--green-50); border-radius: 0 12px 12px 0; margin: 24px 0; font-family: var(--serif); font-size: 20px; color: var(--green-900); font-style: italic; line-height: 1.5; }
-    .article-box-body ul { padding-left: 20px; margin-bottom: 20px; }
-    .article-box-body ul li { font-size: 16px; color: #444; line-height: 1.85; margin-bottom: 8px; }
-    .article-stat { display: inline-block; background: var(--green-50); border: 1px solid rgba(45,122,64,0.15); border-radius: 12px; padding: 16px 20px; margin: 8px 4px; text-align: center; }
-    .article-stat-n { font-family: var(--serif); font-size: 32px; color: var(--green-700); line-height: 1; }
-    .article-stat-l { font-size: 12px; color: #888; margin-top: 4px; }
-  </style>
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts.js" defer></script>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none">
@@ -163,7 +39,6 @@
   </div>
 </nav>
 
-<!-- HERO BAND -->
 <div class="hub-hero">
   <div class="hub-hero-inner">
     <div class="hub-tag">Research · Insights · Perspectives</div>
@@ -180,10 +55,8 @@
   </div>
 </div>
 
-<!-- MAIN BODY -->
 <div class="page-body">
   <div>
-    <!-- FEATURED -->
     <div class="featured-post">
       <div class="featured-visual">
         <div class="featured-num">01</div>
@@ -207,7 +80,6 @@
       </div>
     </div>
 
-    <!-- ARTICLES GRID -->
     <div class="articles-grid" id="articles-grid">
 
       <div class="article-card" data-topic="youth">
@@ -356,10 +228,8 @@
     </div>
   </div>
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
 
-    <!-- NEWSLETTER -->
     <div class="newsletter-card">
       <h3>Stay Informed</h3>
       <p>Get Oletai's latest research, field reports, and policy insights delivered directly to your inbox — every month.</p>
@@ -367,7 +237,6 @@
       <button class="newsletter-btn" id="subscribe-btn">Subscribe to Knowledge Hub</button>
     </div>
 
-    <!-- TOPICS -->
     <div class="scard">
       <div class="scard-head">Topics</div>
       <div class="scard-body">
@@ -382,7 +251,6 @@
       </div>
     </div>
 
-    <!-- KEY STATS -->
     <div class="scard">
       <div class="scard-head">Key Data Points</div>
       <div class="scard-body">
@@ -395,7 +263,6 @@
       </div>
     </div>
 
-    <!-- REPORTS & RESOURCES -->
     <div class="scard">
       <div class="scard-head">Key Reports</div>
       <div class="scard-body">
@@ -433,7 +300,6 @@
   </aside>
 </div>
 
-<!-- ARTICLE OVERLAYS -->
 <div class="article-overlay" id="article1">
   <div class="article-box">
     <button class="article-box-close" onclick="closeArticle('article1')">✕</button>
@@ -532,47 +398,5 @@
   </div>
 </footer>
 
-<script>
-  // Topic filter
-  window.filterPosts = function(topic, btn) {
-    const cards = document.querySelectorAll('.article-card');
-    cards.forEach(c => {
-      c.style.display = (topic === 'all' || c.dataset.topic === topic) ? 'block' : 'none';
-    });
-    document.querySelectorAll('.topic-pill').forEach(p => p.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-  };
-
-  // Article overlay
-  window.openArticle = function(id) {
-    document.getElementById(id).classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-  window.closeArticle = function(id) {
-    document.getElementById(id).classList.remove('open');
-    document.body.style.overflow = '';
-  };
-  document.querySelectorAll('.article-overlay').forEach(overlay => {
-    overlay.addEventListener('click', function(e) {
-      if (e.target === this) closeArticle(this.id);
-    });
-  });
-
-  // Newsletter
-  document.getElementById('subscribe-btn').addEventListener('click', function() {
-    this.textContent = '✓ You\'re subscribed!';
-    this.style.background = 'var(--green-800)';
-  });
-
-  // Close on ESC
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.article-overlay.open').forEach(o => {
-        o.classList.remove('open');
-        document.body.style.overflow = '';
-      });
-    }
-  });
-</script>
 </body>
 </html>
