@@ -3,28 +3,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Knowledge Hub | Oletai Agro Group</title>
-  <meta name="description" content="Research, field insights, and policy analysis advancing agricultural finance and climate resilience across East Africa.">
-  <meta name="keywords" content="Agritech Research, Climate Resilience, Agricultural Finance, Youth in Agriculture, Oletai Agro Group Blog">
-  <meta name="author" content="Oletai Agro Group">
-  <link rel="canonical" href="https://oletai.org/blog.html">
-  
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://oletai.org/blog.html">
-  <meta property="og:title" content="Knowledge Hub | Oletai Agro Group">
-  <meta property="og:description" content="Research, field insights, and policy analysis advancing agricultural finance across East Africa.">
-  <meta property="og:image" content="https://oletai.org/assets/blog-preview.jpg">
-
-  <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green-950: #061C0F;
+      --green-900: #0C2E18;
+      --green-800: #174523;
+      --green-700: #1F5E2E;
+      --green-600: #2D7A40;
+      --green-500: #3D9A54;
+      --green-400: #5BB56E;
+      --green-300: #87CE96;
+      --green-100: #C8EACE;
+      --green-50:  #EAF5EC;
+      --amber-700: #92400E;
+      --amber-500: #D97706;
+      --amber-400: #F59E0B;
+      --amber-50:  #FFFBEB;
+      --teal-800:  #134E4A;
+      --teal-600:  #0D9488;
+      --teal-100:  #CCFBF1;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --serif: 'DM Serif Display', Georgia, serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: #F7F5F0; color: #1a1a1a; overflow-x: hidden; }
 
-  <link rel="stylesheet" href="styles.css">
-  <script src="scripts.js" defer></script>
+    /* NAV */
+    nav {
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(45,122,64,0.1);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 56px; height: 70px; display: flex; align-items: center; justify-content: space-between; }
+    .logo-mark { width: 38px; height: 38px; border-radius: 9px; background: var(--green-700); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 19px; color: #fff; font-style: italic; flex-shrink: 0; }
+    .logo-text { font-size: 15px; font-weight: 600; color: #111; }
+    .logo-sub { font-size: 10px; font-weight: 400; color: #888; letter-spacing: 0.1em; text-transform: uppercase; }
+    .nav-badge { background: var(--green-50); border: 1px solid rgba(45,122,64,0.2); color: var(--green-700); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px; letter-spacing: 0.06em; }
+    .nav-back { font-size: 13px; font-weight: 600; color: #777; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--green-600); }
+
+    /* HERO BAND */
+    .hub-hero { background: var(--green-900); padding: 72px 56px 64px; }
+    .hub-hero-inner { max-width: 1280px; margin: 0 auto; }
+    .hub-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-300); margin-bottom: 16px; }
+    .hub-tag::before { content: ''; width: 20px; height: 2px; background: var(--green-400); border-radius: 1px; }
+    .hub-hero h1 { font-family: var(--serif); font-size: 52px; color: #fff; line-height: 1.1; margin-bottom: 18px; }
+    .hub-hero h1 em { font-style: italic; color: var(--green-400); }
+    .hub-hero p { font-size: 18px; color: rgba(255,255,255,0.55); font-weight: 300; max-width: 600px; line-height: 1.75; margin-bottom: 36px; }
+    .topic-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .topic-pill { border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 500; padding: 7px 16px; border-radius: 100px; cursor: pointer; transition: all 0.2s; background: transparent; }
+    .topic-pill:hover, .topic-pill.active { background: var(--green-700); border-color: var(--green-600); color: #fff; }
+
+    /* MAIN LAYOUT */
+    .page-body { max-width: 1280px; margin: 0 auto; padding: 56px 56px 80px; display: grid; grid-template-columns: 1fr 320px; gap: 48px; }
+
+    /* FEATURED POST */
+    .featured-post { background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.07); margin-bottom: 32px; display: grid; grid-template-columns: 1fr 1fr; }
+    .featured-visual { background: var(--green-950); padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
+    .featured-num { font-family: var(--serif); font-size: 80px; color: rgba(255,255,255,0.07); line-height: 1; margin-bottom: 24px; }
+    .featured-quote { font-family: var(--serif); font-size: 22px; color: rgba(255,255,255,0.75); font-style: italic; line-height: 1.5; }
+    .featured-source { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 10px; }
+    .featured-body { padding: 40px; }
+    .featured-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber-500); margin-bottom: 12px; }
+    .featured-body h2 { font-family: var(--serif); font-size: 28px; color: #111; line-height: 1.25; margin-bottom: 16px; }
+    .featured-body p { font-size: 14px; color: #666; line-height: 1.75; margin-bottom: 24px; }
+    .article-meta { display: flex; align-items: center; gap: 10px; padding-top: 20px; border-top: 1px solid #f0f0f0; }
+    .avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 15px; font-style: italic; flex-shrink: 0; }
+    .meta-author { font-size: 13px; font-weight: 600; color: #333; }
+    .meta-date { font-size: 12px; color: #aaa; }
+    .read-link { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--green-700); text-decoration: none; display: flex; align-items: center; gap: 4px; }
+    .read-link:hover { color: var(--green-600); }
+
+    /* ARTICLE GRID */
+    .articles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .article-card { background: #fff; border-radius: 16px; border: 1px solid rgba(0,0,0,0.07); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .article-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .article-card-top { height: 5px; }
+    .article-card-body { padding: 24px; }
+    .article-tags { display: flex; gap: 8px; margin-bottom: 14px; align-items: center; flex-wrap: wrap; }
+    .tag { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; }
+    .read-time { font-size: 11px; color: #bbb; margin-left: auto; }
+    .article-card h3 { font-family: var(--serif); font-size: 18px; color: #111; line-height: 1.3; margin-bottom: 10px; }
+    .article-card p { font-size: 13px; color: #777; line-height: 1.7; margin-bottom: 18px; }
+    .article-card .article-meta { padding-top: 14px; }
+
+    /* SIDEBAR */
+    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+    .scard { background: #fff; border-radius: 16px; border: 1px solid rgba(0,0,0,0.07); overflow: hidden; }
+    .scard-head { padding: 16px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #999; }
+    .scard-body { padding: 16px 20px; }
+    .topic-list { display: flex; flex-direction: column; gap: 0; }
+    .topic-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5; font-size: 14px; color: #444; font-weight: 500; cursor: pointer; transition: color 0.2s; text-decoration: none; }
+    .topic-row:last-child { border-bottom: none; }
+    .topic-row:hover { color: var(--green-700); }
+    .topic-count { font-size: 12px; color: #bbb; font-weight: 400; }
+    .newsletter-card { background: var(--green-900); border-radius: 16px; padding: 28px; }
+    .newsletter-card h3 { font-family: var(--serif); font-size: 22px; color: #fff; margin-bottom: 10px; }
+    .newsletter-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 20px; }
+    .newsletter-input { width: 100%; padding: 11px 14px; border-radius: 8px; border: none; font-family: var(--sans); font-size: 13px; margin-bottom: 10px; outline: none; }
+    .newsletter-btn { width: 100%; background: var(--green-500); color: #fff; border: none; padding: 12px; border-radius: 8px; font-family: var(--sans); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .newsletter-btn:hover { background: var(--green-600); }
+    .data-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+    .data-row:last-child { border-bottom: none; }
+    .data-label { font-size: 13px; color: #666; }
+    .data-val { font-size: 13px; font-weight: 700; color: #111; }
+    .source-badge { background: var(--green-50); color: var(--green-700); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; letter-spacing: 0.06em; }
+    .report-row { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #f5f5f5; }
+    .report-row:last-child { border-bottom: none; }
+    .report-ico { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .report-row h5 { font-size: 13px; font-weight: 600; color: #111; line-height: 1.35; margin-bottom: 3px; }
+    .report-row p { font-size: 11px; color: #aaa; }
+    .pagination { display: flex; gap: 8px; justify-content: center; margin-top: 32px; }
+    .page-btn { width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); background: #fff; color: #555; transition: all 0.2s; }
+    .page-btn.active { background: var(--green-700); color: #fff; border-color: var(--green-700); }
+    .page-btn:hover:not(.active) { background: var(--green-50); border-color: var(--green-400); color: var(--green-700); }
+
+    footer { background: var(--green-950); padding: 40px 56px; margin-top: 0; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-inner p { font-size: 13px; color: rgba(255,255,255,0.3); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--green-400); }
+
+    /* ARTICLE FULL PAGE overlay */
+    .article-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; overflow-y: auto; padding: 40px 20px; }
+    .article-overlay.open { display: flex; justify-content: center; }
+    .article-box { background: #fff; border-radius: 20px; max-width: 780px; width: 100%; padding: 0 0 56px; overflow: hidden; position: relative; align-self: flex-start; margin-top: 20px; }
+    .article-box-close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; border: none; z-index: 2; }
+    .article-box-header { background: var(--green-900); padding: 48px 48px 40px; }
+    .article-box-body { padding: 40px 48px 0; }
+    .article-box-body h2 { font-family: var(--serif); font-size: 26px; color: #111; margin: 28px 0 14px; }
+    .article-box-body p { font-size: 16px; color: #444; line-height: 1.85; margin-bottom: 20px; }
+    .article-box-body blockquote { border-left: 3px solid var(--green-500); padding: 16px 24px; background: var(--green-50); border-radius: 0 12px 12px 0; margin: 24px 0; font-family: var(--serif); font-size: 20px; color: var(--green-900); font-style: italic; line-height: 1.5; }
+    .article-box-body ul { padding-left: 20px; margin-bottom: 20px; }
+    .article-box-body ul li { font-size: 16px; color: #444; line-height: 1.85; margin-bottom: 8px; }
+    .article-stat { display: inline-block; background: var(--green-50); border: 1px solid rgba(45,122,64,0.15); border-radius: 12px; padding: 16px 20px; margin: 8px 4px; text-align: center; }
+    .article-stat-n { font-family: var(--serif); font-size: 32px; color: var(--green-700); line-height: 1; }
+    .article-stat-l { font-size: 12px; color: #888; margin-top: 4px; }
+  </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none">
@@ -39,6 +163,7 @@
   </div>
 </nav>
 
+<!-- HERO BAND -->
 <div class="hub-hero">
   <div class="hub-hero-inner">
     <div class="hub-tag">Research · Insights · Perspectives</div>
@@ -55,8 +180,10 @@
   </div>
 </div>
 
+<!-- MAIN BODY -->
 <div class="page-body">
   <div>
+    <!-- FEATURED -->
     <div class="featured-post">
       <div class="featured-visual">
         <div class="featured-num">01</div>
@@ -68,7 +195,7 @@
       <div class="featured-body">
         <div class="featured-label">Featured Article · Agricultural Finance</div>
         <h2>Africa's $75 Billion Gap: Why Farmers Without Collateral Can't Access the Capital They Need</h2>
-        <p>A joint May 2026 report by the FAO, WFP, and African Union Commission confirmed what farmers have lived for decades: Africa faces a $75 billion annual agricultural financing gap. Only 6% of smallholder farmers have access to formal credit. In Kenya, lenders demand collateral of up to 120% of the loan value — effectively shutting out almost every small-scale farmer. This article unpacks the systemic barriers and explains how knowledge-based credit scoring changes the equation.</p>
+        <p>Recent international research confirmed what farmers have lived for decades: Africa faces a $75 billion annual agricultural financing gap. Only 6% of smallholder farmers have access to formal credit. In Kenya, lenders demand collateral of up to 120% of the loan value — effectively shutting out almost every small-scale farmer. This article unpacks the systemic barriers and explains how knowledge-based credit scoring changes the equation.</p>
         <div class="article-meta">
           <div class="avatar" style="background:var(--green-700);color:#fff">K</div>
           <div>
@@ -80,6 +207,7 @@
       </div>
     </div>
 
+    <!-- ARTICLES GRID -->
     <div class="articles-grid" id="articles-grid">
 
       <div class="article-card" data-topic="youth">
@@ -90,7 +218,7 @@
             <span class="read-time">5 min</span>
           </div>
           <h3>Why Young Kenyans Are Leaving the Farm — and How We're Bringing Them Back</h3>
-          <p>The next generation doesn't see farming as a viable career. A FAO and IFAD joint study identifies five structural barriers — and Learn-to-Earn digital models are directly addressing three of them.</p>
+          <p>The next generation doesn't see farming as a viable career. International research identifies five structural barriers — and Learn-to-Earn digital models are directly addressing three of them.</p>
           <div class="article-meta">
             <div class="avatar" style="background:var(--teal-800);color:#fff">E</div>
             <div><div class="meta-author">Eric Kosgey</div><div class="meta-date">Apr 2026</div></div>
@@ -192,7 +320,7 @@
             <span class="read-time">4 min</span>
           </div>
           <h3>Rebranding Agriculture: How Making Farming a Smart Career Is the Key to East African Food Security</h3>
-          <p>FAO research shows rural youth face five structural barriers to agriculture. The most overlooked one? Perception. Farming must be rebranded as a tech-enabled, high-status career — not a fallback.</p>
+          <p>Research shows rural youth face five structural barriers to agriculture. The most overlooked one? Perception. Farming must be rebranded as a tech-enabled, high-status career — not a fallback.</p>
           <div class="article-meta">
             <div class="avatar" style="background:var(--teal-800);color:#fff">E</div>
             <div><div class="meta-author">Eric Kosgey</div><div class="meta-date">Oct 2025</div></div>
@@ -228,8 +356,10 @@
     </div>
   </div>
 
+  <!-- SIDEBAR -->
   <aside class="sidebar">
 
+    <!-- NEWSLETTER -->
     <div class="newsletter-card">
       <h3>Stay Informed</h3>
       <p>Get Oletai's latest research, field reports, and policy insights delivered directly to your inbox — every month.</p>
@@ -237,6 +367,7 @@
       <button class="newsletter-btn" id="subscribe-btn">Subscribe to Knowledge Hub</button>
     </div>
 
+    <!-- TOPICS -->
     <div class="scard">
       <div class="scard-head">Topics</div>
       <div class="scard-body">
@@ -251,6 +382,7 @@
       </div>
     </div>
 
+    <!-- KEY STATS -->
     <div class="scard">
       <div class="scard-head">Key Data Points</div>
       <div class="scard-body">
@@ -263,6 +395,7 @@
       </div>
     </div>
 
+    <!-- REPORTS & RESOURCES -->
     <div class="scard">
       <div class="scard-head">Key Reports</div>
       <div class="scard-body">
@@ -300,6 +433,7 @@
   </aside>
 </div>
 
+<!-- ARTICLE OVERLAYS -->
 <div class="article-overlay" id="article1">
   <div class="article-box">
     <button class="article-box-close" onclick="closeArticle('article1')">✕</button>
@@ -312,10 +446,10 @@
       </div>
     </div>
     <div class="article-box-body">
-      <p>A joint report published in May 2026 by the FAO, WFP, and African Union Commission confirmed what millions of farmers have lived for decades: Africa faces a $75 billion annual agricultural financing gap. That is the amount of investment — in tools, inputs, equipment, and services — that farmers need but cannot access. And it is growing.</p>
+      <p>Recent international research published in May 2026 confirmed what millions of farmers have lived for decades: Africa faces a $75 billion annual agricultural financing gap. That is the amount of investment — in tools, inputs, equipment, and services — that farmers need but cannot access. And it is growing.</p>
       <blockquote>"The financing gap for smallholder farmers is not a market failure — it is a data failure. Oletai is building the data layer that makes farmers visible to the financial system."</blockquote>
       <h2>The Root of the Problem</h2>
-      <p>Traditional lenders perceive agriculture as high-risk, discouraged by climate volatility, remote rural locations, and the fragmented scale of smallholder operations. In Kenya, the agriculture sector contributes over 25% of GDP and employs millions — yet it receives less than 5% of total commercial bank lending, according to AGRA's 2025 analysis. Some lenders demand collateral of up to 120% of the loan value, effectively locking out every farmer who does not own titled land.</p>
+      <p>Traditional lenders perceive agriculture as high-risk, discouraged by climate volatility, remote rural locations, and the fragmented scale of smallholder operations. In Kenya, the agriculture sector contributes over 25% of GDP and employs millions — yet it receives less than 5% of total commercial bank lending. Some lenders demand collateral of up to 120% of the loan value, effectively locking out every farmer who does not own titled land.</p>
       <p>For the farmer, the barriers are equally formidable. No formal land title means no collateral. Operating in a cash-based economy means no documented credit history. The result is a self-reinforcing cycle: low investment → low yields → deepened perception of risk → less investment.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin:24px 0">
         <div class="article-stat"><div class="article-stat-n">6%</div><div class="article-stat-l">Farmers with credit access</div></div>
@@ -323,7 +457,7 @@
         <div class="article-stat"><div class="article-stat-n">4%</div><div class="article-stat-l">Kenya agri-bank lending share</div></div>
       </div>
       <h2>Knowledge as Collateral</h2>
-      <p>Oletai's answer to this is the Agri-Trust Score — a dynamic creditworthiness measure built from verified agricultural knowledge, not asset ownership. When a farmer completes a module on soil health, irrigation, or pest management, they are not just learning — they are building the profile that unlocks credit. This model directly addresses what the African Development Bank identified in its 2025 Nairobi conference as a primary barrier: the absence of reliable data on smallholder farmers.</p>
+      <p>Oletai's answer to this is the Agri-Trust Score — a dynamic creditworthiness measure built from verified agricultural knowledge, not asset ownership. When a farmer completes a module on soil health, irrigation, or pest management, they are not just learning — they are building the profile that unlocks credit. This model directly addresses what development finance research has identified as a primary barrier: the absence of reliable data on smallholder farmers.</p>
       <p>The data generated by our biosurveillance network — anonymous, real-time, geospatial — provides lenders with something traditional credit scoring never could: forward-looking agronomic intelligence about specific farms, in specific micro-climates, facing specific risks. This is what makes a farmer bankable without collateral.</p>
       <h2>The East Africa Opportunity</h2>
       <p>The African Development Bank President Dr. Akinwumi Adesina stated clearly at the March 2025 Nairobi conference: "Together, let us unleash the potential of agriculture in Africa." His institution is planning a $500 million facility to unlock $10 billion for smallholder farmers — but capital without digital delivery infrastructure reaches only large organisations, not the last mile.</p>
@@ -345,7 +479,7 @@
       </div>
     </div>
     <div class="article-box-body">
-      <p>A landmark FAO, CTA, and IFAD joint publication on youth and agriculture identified five structural barriers that push young people away from farming globally. All five are present in Kenya. Understanding them is the first step to reversing the trend.</p>
+      <p>Landmark international research on youth and agriculture identified five structural barriers that push young people away from farming globally. All five are present in Kenya. Understanding them is the first step to reversing the trend.</p>
       <h2>The Five Barriers</h2>
       <ul>
         <li><strong>Access to knowledge and education</strong> — Agricultural curricula are outdated and disconnected from real farming challenges. Young people don't learn modern, profitable farming in school.</li>
@@ -381,7 +515,7 @@
       <p>Uganda's Agricultural Finance Yearbook 2022 documented a damaging cycle: climate shocks reduce agricultural yields, which reduces farmer income, which increases loan default rates, which causes banks to restrict agricultural lending further — making farmers even more vulnerable to the next climate shock. Oletai's AI Agronomist breaks this cycle at two points.</p>
       <p>First, early detection of crop diseases and pest outbreaks — before they become harvest-destroying events — reduces the yield losses that trigger the cycle. Second, the biosurveillance data generated by Rahisi Agro Pay gives financial institutions real-time agronomic intelligence to assess and price climate risk at the farm level, rather than applying blanket sector-level risk premiums that penalise all farmers equally.</p>
       <h2>Climate Finance Is Coming to Africa — Oletai Is the Last Mile</h2>
-      <p>Africa received $44 billion in climate finance in 2021/22 — a 48% increase from two years earlier. But the FAO/WFP/AUC May 2026 joint report notes this is still far below the $250 billion annually needed. As climate finance flows increase, the critical gap is not funding — it is delivery infrastructure that reaches individual farmers.</p>
+      <p>Africa received $44 billion in climate finance in 2021/22 — a 48% increase from two years earlier. Yet recent research notes this is still far below the $250 billion annually needed. As climate finance flows increase, the critical gap is not funding — it is delivery infrastructure that reaches individual farmers.</p>
       <p>Rahisi Agro Pay's closed-loop input voucher system ensures climate-smart seeds, drought-resistant varieties, and soil conditioners reach farmers directly — eliminating the cash leakage that often means climate finance never arrives at the farm gate.</p>
     </div>
   </div>
@@ -398,5 +532,47 @@
   </div>
 </footer>
 
+<script>
+  // Topic filter
+  window.filterPosts = function(topic, btn) {
+    const cards = document.querySelectorAll('.article-card');
+    cards.forEach(c => {
+      c.style.display = (topic === 'all' || c.dataset.topic === topic) ? 'block' : 'none';
+    });
+    document.querySelectorAll('.topic-pill').forEach(p => p.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  };
+
+  // Article overlay
+  window.openArticle = function(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeArticle = function(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  document.querySelectorAll('.article-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) closeArticle(this.id);
+    });
+  });
+
+  // Newsletter
+  document.getElementById('subscribe-btn').addEventListener('click', function() {
+    this.textContent = '✓ You\'re subscribed!';
+    this.style.background = 'var(--green-800)';
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.article-overlay.open').forEach(o => {
+        o.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+</script>
 </body>
 </html>

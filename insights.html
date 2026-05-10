@@ -3,27 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Live Biosurveillance Map | Oletai Agro Group</title>
-  <meta name="description" content="Live geospatial tracking of crop diseases and pest outbreaks across Kenya. Powered by Oletai Agro Group's AI biosurveillance network.">
-  <meta name="keywords" content="Biosurveillance, Kenya, Crop Disease Map, Fall Armyworm Tracker, Agritech Data, Oletai Agro Group">
-  <meta name="author" content="Oletai Agro Group">
-  <link rel="canonical" href="https://oletai.org/insights.html">
-  
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://oletai.org/insights.html">
-  <meta property="og:title" content="Live Biosurveillance Map | Oletai Agro Group">
-  <meta property="og:description" content="Live geospatial tracking of crop diseases and pest outbreaks across Kenya.">
-  <meta property="og:image" content="https://oletai.org/assets/map-preview.jpg">
-
-  <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    :root {
+      --green-950: #061C0F;
+      --green-900: #0C2E18;
+      --green-800: #174523;
+      --green-700: #1F5E2E;
+      --green-600: #2D7A40;
+      --green-500: #3D9A54;
+      --green-400: #5BB56E;
+      --green-300: #87CE96;
+      --green-100: #C8EACE;
+      --green-50:  #EAF5EC;
+      --amber-500: #D97706;
+      --amber-400: #F59E0B;
+      --amber-50:  #FFFBEB;
+      --teal-600:  #0D9488;
+      --teal-100:  #CCFBF1;
+      --red-500:   #EF4444;
+      --red-100:   #FEE2E2;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --serif: 'DM Serif Display', Georgia, serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: #F7F5F0; color: #1a1a1a; overflow-x: hidden; }
+    #map { height: 100%; width: 100%; }
+    .leaflet-container { background: #0f1f14 !important; }
 
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-  <script src="scripts.js" defer></script>
+    nav {
+      background: rgba(6,28,15,0.97); backdrop-filter: blur(14px);
+      padding: 0 56px; height: 68px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(61,154,84,0.15); position: sticky; top: 0; z-index: 1000;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-m { width: 38px; height: 38px; border-radius: 9px; background: var(--green-700); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 19px; color: #fff; font-style: italic; }
+    .logo-txt { font-size: 15px; font-weight: 600; color: #fff; }
+    .logo-badge { background: rgba(61,154,84,0.2); border: 1px solid rgba(61,154,84,0.3); color: var(--green-400); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; letter-spacing: 0.08em; }
+    .nav-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--green-400); }
+
+    .page-wrap { max-width: 1320px; margin: 0 auto; padding: 40px 56px 64px; }
+    .page-header { margin-bottom: 36px; }
+    .page-header h1 { font-family: var(--serif); font-size: 40px; color: #111; line-height: 1.1; margin-bottom: 8px; }
+    .page-header p { font-size: 16px; color: #777; font-weight: 300; max-width: 640px; line-height: 1.65; }
+
+    /* STATS ROW */
+    .stats-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 28px; }
+    .stat-card { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px; padding: 20px 22px; transition: box-shadow 0.2s; }
+    .stat-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
+    .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #aaa; margin-bottom: 6px; }
+    .stat-val { font-family: var(--serif); font-size: 30px; color: #111; line-height: 1; }
+    .stat-sub { font-size: 11px; color: #aaa; margin-top: 4px; }
+    .stat-card.alert .stat-val { color: var(--red-500); }
+    .stat-card.live .stat-val { color: var(--green-600); }
+
+    /* MAIN LAYOUT */
+    .main-layout { display: grid; grid-template-columns: 1fr 340px; gap: 20px; height: 560px; }
+    .map-container { background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid rgba(0,0,0,0.07); display: flex; flex-direction: column; }
+    .map-toolbar { height: 52px; background: var(--green-950); display: flex; align-items: center; padding: 0 18px; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+    .map-title-txt { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.75); }
+    .map-live-badge { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--green-400); font-weight: 600; margin-left: auto; }
+    .map-live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-400); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
+    .map-filters { display: flex; gap: 8px; }
+    .map-filter { border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; padding: 4px 12px; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.2s; background: transparent; }
+    .map-filter:hover, .map-filter.active { background: rgba(61,154,84,0.2); border-color: var(--green-500); color: var(--green-300); }
+    .map-body { flex: 1; position: relative; min-height: 0; }
+    .map-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #0f1f14; z-index: 10; pointer-events: none; transition: opacity 0.5s; }
+    .map-loading.hidden { opacity: 0; }
+    .map-loading-text { font-size: 13px; color: rgba(255,255,255,0.45); }
+    .map-legend-bar { height: 40px; background: var(--green-950); display: flex; align-items: center; padding: 0 18px; gap: 20px; border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+    .leg-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.5); }
+    .leg-dot { width: 9px; height: 9px; border-radius: 50%; }
+
+    /* SIDEBAR */
+    .sidebar { display: flex; flex-direction: column; gap: 14px; overflow-y: auto; }
+    .sidebar-card { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px; overflow: hidden; }
+    .sidebar-header { padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #999; display: flex; align-items: center; justify-content: space-between; }
+    .sidebar-header span { background: var(--green-50); color: var(--green-700); font-size: 10px; padding: 2px 8px; border-radius: 100px; font-weight: 700; }
+
+    /* ALERTS LIST */
+    .alert-item { padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; gap: 12px; align-items: flex-start; cursor: pointer; transition: background 0.15s; }
+    .alert-item:last-child { border-bottom: none; }
+    .alert-item:hover { background: #fafafa; }
+    .alert-dot-wrap { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .alert-item h4 { font-size: 13px; font-weight: 600; color: #111; margin-bottom: 2px; }
+    .alert-item p { font-size: 12px; color: #888; line-height: 1.4; }
+    .alert-meta { font-size: 10px; color: #bbb; margin-top: 3px; }
+
+    /* PARTNERS MINI */
+    .partner-mini { padding: 14px 18px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+    .partner-mini:last-child { border-bottom: none; }
+    .partner-mini-ico { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; font-family: var(--serif); flex-shrink: 0; }
+    .partner-mini h5 { font-size: 13px; font-weight: 600; color: #111; }
+    .partner-mini p { font-size: 11px; color: #999; }
+
+    /* RECENT SCANS TABLE */
+    .scans-section { background: #fff; border-radius: 18px; border: 1px solid rgba(0,0,0,0.07); overflow: hidden; margin-top: 20px; }
+    .scans-header { padding: 18px 24px; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; }
+    .scans-header h2 { font-family: var(--serif); font-size: 22px; color: #111; }
+    .scans-header a { font-size: 13px; color: var(--green-600); font-weight: 600; text-decoration: none; }
+    .scans-table { width: 100%; border-collapse: collapse; }
+    .scans-table th { padding: 11px 20px; text-align: left; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #bbb; border-bottom: 1px solid rgba(0,0,0,0.05); background: #fafafa; }
+    .scans-table td { padding: 14px 20px; font-size: 13px; color: #333; border-bottom: 1px solid rgba(0,0,0,0.04); }
+    .scans-table tr:last-child td { border-bottom: none; }
+    .scans-table tr:hover td { background: #fafafa; }
+    .severity { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; }
+    .severity.high { background: var(--red-100); color: #b91c1c; }
+    .severity.medium { background: var(--amber-50); color: var(--amber-500); }
+    .severity.low { background: var(--green-50); color: var(--green-700); }
+    .severity.monitoring { background: var(--teal-100); color: var(--teal-600); }
+
+    footer { background: var(--green-950); padding: 32px 56px; margin-top: 48px; }
+    .footer-inner { max-width: 1320px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .footer-inner p { font-size: 13px; color: rgba(255,255,255,0.3); }
+    .footer-inner a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; }
+    .footer-inner a:hover { color: var(--green-400); }
+  </style>
 </head>
 <body>
 
@@ -45,6 +147,7 @@
     <p>Real-time geospatial tracking of crop diseases, pest outbreaks, and agronomic anomalies reported by Rahisi Agro Pay farmers across Kenya. Data is anonymised and shared with ICIPE, JKUAT, and KALRO research teams.</p>
   </div>
 
+  <!-- STATS ROW -->
   <div class="stats-row">
     <div class="stat-card live">
       <div class="stat-label">Total AI Scans</div>
@@ -73,6 +176,7 @@
     </div>
   </div>
 
+  <!-- MAP + SIDEBAR -->
   <div class="main-layout">
     <div class="map-container">
       <div class="map-toolbar">
@@ -100,6 +204,7 @@
       </div>
     </div>
     <div class="sidebar">
+      <!-- ALERTS -->
       <div class="sidebar-card">
         <div class="sidebar-header">Active Alerts <span>2 URGENT</span></div>
         <div class="alert-item">
@@ -127,6 +232,7 @@
           </div>
         </div>
       </div>
+      <!-- RESEARCH PARTNERS -->
       <div class="sidebar-card">
         <div class="sidebar-header">Research Partners</div>
         <div class="partner-mini">
@@ -145,6 +251,7 @@
     </div>
   </div>
 
+  <!-- RECENT SCANS TABLE -->
   <div class="scans-section">
     <div class="scans-header">
       <h2>Recent AI Scans</h2>
@@ -162,6 +269,7 @@
         </tr>
       </thead>
       <tbody id="scans-tbody">
+        <!-- Fallback data, replaced by API if available -->
         <tr>
           <td>Jun 14, 2026</td><td>Narok</td><td>Maize</td>
           <td>Fall Armyworm (Spodoptera frugiperda)</td>
@@ -210,5 +318,98 @@
     <a href="index.html">← Main Site</a>
   </div>
 </footer>
+
+<script>
+  // Map init
+  const map = L.map('map').setView([-0.6, 37.5], 6);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Custom icon factory
+  function makeIcon(color) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="width:14px;height:14px;border-radius:50%;background:${color};border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.4)"></div>`,
+      iconSize: [14, 14],
+      iconAnchor: [7, 7]
+    });
+  }
+
+  const COLORS = { disease: '#F59E0B', pest: '#EF4444', healthy: '#3D9A54', monitoring: '#0D9488', hub: '#3D9A54' };
+
+  // Static fallback data
+  const POINTS = [
+    { lat: -1.2921, lng: 36.8219, type: 'hub', title: 'Nairobi HQ', desc: 'Oletai Agro Group Headquarters · Garden City', county: 'Nairobi' },
+    { lat: 0.0528, lng: 37.6494, type: 'disease', title: 'Maize Lethal Necrosis', desc: 'MLN confirmed across 3 sub-counties. 9 farmer reports.', county: 'Meru' },
+    { lat: -1.0455, lng: 35.8718, type: 'pest', title: 'Fall Armyworm Outbreak', desc: 'High-density FAW infestation. 14 farmer confirmations.', county: 'Narok' },
+    { lat: 0.5143, lng: 37.2693, type: 'monitoring', title: 'Coffee Rust Monitoring', desc: 'Low-level Hemileia vastatrix detected. Preventive measures advised.', county: 'Nyeri' },
+    { lat: -0.3031, lng: 36.0800, type: 'healthy', title: 'Nakuru — 82 Scans', desc: 'Active scanning region. Mostly healthy crop reports.', county: 'Nakuru' },
+    { lat: -1.0500, lng: 37.0833, type: 'monitoring', title: 'Embu Monitoring Station', desc: 'Bean rust under watch. 6 reports this month.', county: 'Embu' },
+    { lat: 0.2839, lng: 34.7519, type: 'healthy', title: 'Bungoma Scans', desc: 'Healthy sugarcane crop reports. 22 scans this month.', county: 'Bungoma' },
+  ];
+
+  let allMarkers = [];
+  let activeFilter = 'all';
+
+  function plotMarkers(filterType) {
+    allMarkers.forEach(m => map.removeLayer(m));
+    allMarkers = [];
+    POINTS.forEach(pt => {
+      if (filterType !== 'all' && pt.type !== filterType && !(filterType === 'healthy' && pt.type === 'hub')) return;
+      const color = COLORS[pt.type] || '#888';
+      const marker = L.marker([pt.lat, pt.lng], { icon: makeIcon(color) })
+        .addTo(map)
+        .bindPopup(`
+          <div style="font-family:'DM Sans',sans-serif;min-width:200px">
+            <div style="font-weight:700;font-size:14px;color:#111;margin-bottom:4px">${pt.title}</div>
+            <div style="font-size:12px;color:#666;margin-bottom:6px">${pt.county} County</div>
+            <div style="font-size:12px;color:#444;line-height:1.5">${pt.desc}</div>
+          </div>
+        `);
+      allMarkers.push(marker);
+    });
+  }
+
+  window.filterMap = function(type, btn) {
+    activeFilter = type;
+    document.querySelectorAll('.map-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    plotMarkers(type);
+  };
+
+  // Try to load from API, fall back gracefully
+  async function loadData() {
+    try {
+      const res = await fetch('https://rahisipay-api.onrender.com/api/v1/research/map-data', { signal: AbortSignal.timeout(5000) });
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+      document.getElementById('totalScans').textContent = data.length.toLocaleString();
+      document.getElementById('monthlyScans').textContent = Math.round(data.length * 0.18).toLocaleString();
+      // Plot real data if available
+      data.forEach(pt => {
+        if (!pt.lat || !pt.lng) return;
+        const marker = L.marker([pt.lat, pt.lng], { icon: makeIcon(COLORS.monitoring) })
+          .addTo(map)
+          .bindPopup(`<div style="font-family:'DM Sans',sans-serif"><strong>${pt.date}</strong><br>${pt.diagnosis}</div>`);
+        allMarkers.push(marker);
+      });
+    } catch {
+      // Use static data
+      document.getElementById('totalScans').textContent = '1,247';
+      document.getElementById('monthlyScans').textContent = '224';
+      plotMarkers('all');
+    } finally {
+      document.getElementById('map-loading').classList.add('hidden');
+    }
+  }
+
+  loadData();
+
+  // Initial static plot before API resolves
+  plotMarkers('all');
+  setTimeout(() => document.getElementById('map-loading').classList.add('hidden'), 1200);
+</script>
 </body>
 </html>
